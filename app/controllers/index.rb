@@ -7,12 +7,22 @@ get '/' do
 end
 
 get '/sealions' do
-  SeaLion.all.to_json
+  @sealion = SeaLion.all
+  erb :index
+end
+
+get '/sealions/new' do
+  erb :'sealions/new'
 end
 
 get '/sealions/:id' do
-sealion = SeaLion.find(params[:id])
-sealion.to_json
+  @id_sealion = SeaLion.find(params[:id])
+
+  if @id_sealion
+    erb :'show'
+  else
+    [404, 'No Flipper Found']
+  end
 end
 
 post '/sealions' do
